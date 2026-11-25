@@ -1,0 +1,43 @@
+{
+  "name": "uchcharan",
+  "version": "0.2.2",
+  "description": "Make any TTS speak Indian text correctly. Normalizes ₹ amounts, lakh/crore, dates, times, phone numbers, PNR/OTP, %, units and acronyms into spoken Hindi and Marathi.",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": "./src/index.js",
+  "bin": {
+    "uchcharan": "bin/uchcharan.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "demo": "node examples/demo.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "tts",
+    "text-normalization",
+    "hindi",
+    "marathi",
+    "indic",
+    "voice-ai",
+    "speech",
+    "elevenlabs",
+    "sarvam",
+    "ivr"
+  ],
+  "license": "MIT",
+  "homepage": "https://uchcharan.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/densa850-lab/uchcharan.git"
+  },
+  "funding": "https://github.com/sponsors/densa850-lab"
+}

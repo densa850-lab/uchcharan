@@ -49,6 +49,13 @@ export function buildRules(L, opts) {
       re: re(String.raw`(?<![A-Za-z${DEV}])${pat}(?![A-Za-z])`),
       fn: () => rep,
     })),
+    {
+      // A number right after OTP / PIN / PNR / CVV / code is always read digit by digit,
+      // even when it is short (a 4-digit OTP must not become "four thousand ...").
+      name: 'code',
+      re: re(String.raw`(?<![A-Za-z${DEV}])(OTP|PIN|PNR|CVV|MPIN|UPI PIN|ओटीपी|पिन|कोड|[Cc]ode)(\s*(?:[:\-]|is|no\.?|नंबर|क्रमांक)?\s*)(\d{3,})(?![\d.,]\d|\d)`),
+      fn: (m, [k, sep, d]) => `${k}${sep}${digitsToWords(d, L)}`,
+    },
     { name: 'number-sign', re: re(String.raw`(?<![A-Za-z])(?:No\.|#)\s*(?=\d)`), fn: () => `${L.number} ` },
     {
       name: 'date',
@@ -72,14 +79,17 @@ export function buildRules(L, opts) {
     },
     {
       name: 'time',
-      re: re(String.raw`(?<![\d:])([01]?\d|2[0-3]):([0-5]\d)(?:\s*([AaPp])\.?\s?[Mm]\.?(?![A-Za-z]))?(?![\d:])`),
-      fn: (m, [h, min, ap]) => {
+      re: re(String.raw`(?<![\d:])([01]?\d|2[0-3]):([0-5]\d)(?:\s*([AaPp])\.?\s?[Mm]\.?(?![A-Za-z]))?(?![\d:])(?:\s*(बजे|वाजता|वाजले)(?![${DEV}]))?`),
+      // A trailing बजे / वाजता is dropped: the spoken time already ends in its own word.
+      fn: (m, [h, min, ap, suffix]) => {
         let h24 = Number(h);
         if (ap) {
           if (ap.toLowerCase() === 'p' && h24 < 12) h24 += 12;
           if (ap.toLowerCase() === 'a' && h24 === 12) h24 = 0;
         }
-        return L.time(h24, Number(min), Boolean(ap) || h24 > 12 || h24 === 0, words);
+        const out = L.time(h24, Number(min), Boolean(ap) || h24 > 12 || h24 === 0, words);
+        // Marathi "10:30 वाजता" means "at 10:30": दहा वाजून तीस मिनिटांनी.
+        return suffix === 'वाजता' ? out.replace(/मिनिटे?$/u, 'मिनिटांनी') : out;
       },
     },
     {

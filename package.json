@@ -1,6 +1,6 @@
 {
   "name": "uchcharan",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Make any TTS speak Indian text correctly. Normalizes ₹ amounts, lakh/crore, dates, times, phone numbers, PNR/OTP, %, units and acronyms into spoken Hindi and Marathi.",
   "type": "module",
   "main": "src/index.js",

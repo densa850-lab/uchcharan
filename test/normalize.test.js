@@ -78,7 +78,7 @@ const cases = {
   'devanagari digits and sentences': [
     [() => hi('२५'), 'पच्चीस'],
     [() => hi('आपका ₹2,500 का EMI 05/12/2026 को due है।'), 'आपका दो हज़ार पाँच सौ रुपये का ई एम आई पाँच दिसंबर दो हज़ार छब्बीस को due है।'],
-    [() => mr('तुमचे ₹1,250 चे बिल 10:30 वाजता भरा.'), 'तुमचे एक हजार दोनशे पन्नास रुपये चे बिल दहा वाजून तीस मिनिटे वाजता भरा.'],
+    [() => mr('तुमचे ₹1,250 चे बिल 10:30 वाजता भरा.'), 'तुमचे एक हजार दोनशे पन्नास रुपये चे बिल दहा वाजून तीस मिनिटांनी भरा.'],
   ],
 };
 
@@ -92,4 +92,24 @@ test('explain mode lists changes', () => {
   const r = normalize('₹500 at 10:30', { explain: true });
   assert.equal(r.changes.length, 2);
   assert.equal(r.changes[0].rule, 'currency');
+});
+
+// v0.2.3: bugs found in the live cross-test
+test('short codes after OTP/PIN/code are read digit by digit', () => {
+  assert.equal(hi('OTP 4821'), 'ओ टी पी चार आठ दो एक');
+  assert.equal(hi('OTP: 4821'), 'ओ टी पी: चार आठ दो एक');
+  assert.equal(mr('OTP 4821'), 'ओ टी पी चार आठ दोन एक');
+  assert.equal(hi('code 739'), 'code सात तीन नौ');
+  assert.equal(hi('PIN 411001'), 'पिन चार एक एक शून्य शून्य एक');
+});
+
+test('a trailing बजे / वाजता after a clock time is not repeated', () => {
+  assert.equal(hi('सुबह 9:30 बजे'), 'सुबह नौ बजकर तीस मिनट');
+  assert.equal(mr('सकाळी 9:30 वाजता'), 'सकाळी नऊ वाजून तीस मिनिटांनी');
+  assert.equal(hi('शाम 6 बजे'), 'शाम छह बजे');
+});
+
+test('दि. is read as दिनांक', () => {
+  assert.equal(mr('दि. 05/03/2026'), 'दिनांक पाच मार्च दोन हजार सव्वीस');
+  assert.equal(hi('दि. 05/03/2026'), 'दिनांक पाँच मार्च दो हज़ार छब्बीस');
 });

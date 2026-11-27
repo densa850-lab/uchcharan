@@ -52,7 +52,7 @@ echo "PNR 4521879630" | npx uchcharan --explain
 | `digitRunMin` | `6` | digit strings this long (PNR, OTP, account, PIN) are read digit by digit |
 | `explain` | `false` | return `{ text, changes }` instead of a string |
 
-## What it handles (v0.1)
+## What it handles
 
 | Input | Hindi | Marathi |
 |---|---|---|

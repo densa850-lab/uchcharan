@@ -89,7 +89,7 @@ Contributions are welcome, especially from native speakers checking number words
 
 ## Hosted API (no setup)
 
-Don't want to run it yourself? Use the hosted API at **https://uchcharan.dev**. Try it in the browser at https://huggingface.co/spaces/Densa850/uchcharan.
+Don't want to run it yourself? Use the hosted API at **https://uchcharan.dev**. Try it in the browser at https://huggingface.co/spaces/Densa850/uchcharan. The hosted API and billing live in a separate private service.
 
 ```bash
 curl -X POST https://uchcharan.dev/v1/normalize \

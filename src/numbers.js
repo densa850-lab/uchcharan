@@ -50,6 +50,7 @@ export function numberStringToWords(str, L) {
 /** 1998 → "उन्नीस सौ अट्ठानवे" / "एकोणीसशे अठ्ठ्याण्णव"; 2026 → normal reading. */
 export function yearToWords(y, L) {
   y = Number(y);
+  if (L.year) return L.year(y, (n) => intToWords(n, L));
   if (y >= 1100 && y <= 1999) {
     const c = Math.floor(y / 100);
     const r = y % 100;
@@ -64,6 +65,7 @@ export function amountWords(str, L) {
   const m = /^(\d+)\.50*$/.exec(clean);
   if (m) {
     const n = Number(m[1]);
+    if (typeof L.half === 'function' && n >= 1) return L.half(n, (x) => intToWords(x, L));
     if (n === 1) return L.half[1];
     if (n === 2) return L.half[2];
     if (n > 2) return `${L.half.prefix} ${intToWords(n, L)}`;

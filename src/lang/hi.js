@@ -34,6 +34,16 @@ export default {
   to: 'से',
   and: 'और',
   number: 'नंबर',
+  at: 'ऐट',
+  dot: 'डॉट',
+  underscore: 'अंडरस्कोर',
+  dash: 'डैश',
+  // Time-of-day words. When the text already has one before a clock time, it is not added again.
+  periodWords: ['सुबह', 'सवेरे', 'दोपहर', 'शाम', 'रात', 'तड़के', 'भोर'],
+  upiTokens: {
+    ok: 'ओके', axis: 'ऐक्सिस', bank: 'बैंक', yes: 'यस', paytm: 'पेटीएम', kotak: 'कोटक', airtel: 'एयरटेल',
+    jio: 'जियो', jupiter: 'जूपिटर', freecharge: 'फ्रीचार्ज', slice: 'स्लाइस', federal: 'फ़ेडरल', indus: 'इंडस',
+  },
   percent: 'प्रतिशत',
   scales: { thousand: 'हज़ार', lakh: 'लाख', crore: 'करोड़' },
   hundred: (h) => `${ones[h]} सौ`,

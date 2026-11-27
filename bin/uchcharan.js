@@ -9,8 +9,9 @@ for (let i = 0; i < args.length; i++) {
   if (a === '--lang' || a === '-l') opts.lang = args[++i];
   else if (a === '--explain') opts.explain = true;
   else if (a === '--no-spell') opts.spellAcronyms = false;
+  else if (a === '--pairs') opts.vehicleDigits = 'pairs';
   else if (a === '--help' || a === '-h') {
-    console.log('Usage: uchcharan [--lang hi|mr] [--explain] [--no-spell] "text"\n       echo "text" | uchcharan --lang mr');
+    console.log('Usage: uchcharan [--lang hi|mr|en|auto] [--pairs] [--explain] [--no-spell] "text"\n       echo "text" | uchcharan --lang mr');
     process.exit(0);
   } else text.push(a);
 }

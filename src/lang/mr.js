@@ -34,6 +34,15 @@ export default {
   to: 'ते',
   and: 'आणि',
   number: 'नंबर',
+  at: 'ॲट',
+  dot: 'डॉट',
+  underscore: 'अंडरस्कोर',
+  dash: 'डॅश',
+  periodWords: ['सकाळी', 'दुपारी', 'संध्याकाळी', 'सायंकाळी', 'रात्री', 'पहाटे'],
+  upiTokens: {
+    ok: 'ओके', axis: 'ॲक्सिस', bank: 'बँक', yes: 'येस', paytm: 'पेटीएम', kotak: 'कोटक', airtel: 'एअरटेल',
+    jio: 'जिओ', jupiter: 'ज्युपिटर', freecharge: 'फ्रीचार्ज', slice: 'स्लाइस', federal: 'फेडरल', indus: 'इंडस',
+  },
   percent: 'टक्के',
   scales: { thousand: 'हजार', lakh: 'लाख', crore: 'कोटी' },
   // 100 alone is "शंभर"; otherwise एकशे, दोनशे, ... नऊशे.

@@ -34,8 +34,8 @@ normalize('₹1.5 lakh पासून, दुकान 7:00 PM पर्यं�
 normalize('Your order of Rs. 1,25,000 arrives on 25/11/2026 at 5:30 pm.', { lang: 'en' });
 // → 'Your order of one lakh twenty five thousand rupees arrives on twenty fifth November twenty twenty six at five thirty P M.'
 
-normalize('पैसे densa@okicici पर भेजें, गाड़ी नंबर MH15AB1234', { lang: 'hi' });
-// → 'पैसे densa ऐट ओके आई सी आई सी आई पर भेजें, गाड़ी नंबर एम एच पंद्रह ए बी एक दो तीन चार'
+normalize('पैसे rahul@okicici पर भेजें, गाड़ी नंबर MH15AB1234', { lang: 'hi' });
+// → 'पैसे rahul ऐट ओके आई सी आई सी आई पर भेजें, गाड़ी नंबर एम एच पंद्रह ए बी एक दो तीन चार'
 
 // See exactly what changed (useful for debugging voice agents)
 normalize('₹500 at 10:30', { explain: true });
@@ -78,7 +78,7 @@ echo "PNR 4521879630" | npx uchcharan --explain
 | Devanagari digits `२५` | पच्चीस | पंचवीस |
 | `संध्याकाळी 7:00 PM पर्यंत`, `शाम 7 PM` | शाम सात बजे (time-of-day word never repeated) | संध्याकाळी सात वाजेपर्यंत |
 | `OTP 4821`, `Your verification code is 7392`, `4821 is your OTP` | digit by digit | digit by digit |
-| UPI `densa@okicici`, `rk@ptyes`, `9876543210@ybl` | densa ऐट ओके आई सी आई सी आई | densa ॲट ओके आय सी आय सी आय |
+| UPI `rahul@okicici`, `rk@ptyes`, `9876543210@ybl` | rahul ऐट ओके आई सी आई सी आई | rahul ॲट ओके आय सी आय सी आय |
 | `ट्रेन नंबर 12951`, `गाड़ी संख्या 12951`, `Train No. 12951` | एक दो नौ पाँच एक | एक दोन नऊ पाच एक |
 | `MH15AB1234`, `MH-04-K-0042`, `22 BH 4567 AA` | एम एच पंद्रह ए बी एक दो तीन चार | एम एच पंधरा ए बी एक दोन तीन चार |
 | `error code E4`, `seat A12` | ई चार, ए बारह | ई चार |
@@ -93,13 +93,13 @@ Reads Indian numbers the way Indians say them in English, with no Hindi words mi
 
 - **Train numbers**: digit by digit, the way Indian Railways announcements say them ("गाड़ी संख्या एक दो नौ पाँच एक"). Only a 5-digit number right after ट्रेन / गाड़ी / train / express (optionally with नंबर, संख्या, क्रमांक, No.) is treated as a train number.
 - **Vehicle numbers**: state letters spelled, district code as a number (पंद्रह; a leading zero is read as digits: शून्य चार), series letters spelled, last digits one by one. Digit by digit is unambiguous for IVR and support calls; casual speech often uses pairs (बारह चौंतीस), so `vehicleDigits: 'pairs'` is available. Only real state / UT codes (MH, DL, KA, ...) and the BH series are matched.
-- **UPI IDs**: the handle is read as a word when it looks like a name (`densa`, `rahul`), spelled when it is short or has no vowels (`rk`), digits one by one, `.` as डॉट / dot. `@` is ऐट / ॲट / at. Bank suffixes are split into known parts: `okicici` → ओके आई सी आई सी आई, `okhdfcbank` → ओके एच डी एफ सी बैंक, `ybl` → वाई बी एल, `paytm` → पेटीएम, `ptyes` → पी टी यस. Emails (`x@gmail.com`) and unknown suffixes are left alone unless the text mentions UPI.
+- **UPI IDs**: the handle is read as a word when it looks like a name (`rahul`, `priya`), spelled when it is short or has no vowels (`rk`), digits one by one, `.` as डॉट / dot. `@` is ऐट / ॲट / at. Bank suffixes are split into known parts: `okicici` → ओके आई सी आई सी आई, `okhdfcbank` → ओके एच डी एफ सी बैंक, `ybl` → वाई बी एल, `paytm` → पेटीएम, `ptyes` → पी टी यस. Emails (`x@gmail.com`) and unknown suffixes are left alone unless the text mentions UPI.
 - **OTP / codes**: any number after OTP, PIN, MPIN, TPIN, CVV, PNR, code, verification code, सत्यापन कोड, कोड, or before "is your OTP" / "हा तुमचा OTP", is read digit by digit in all three languages.
 
 ## Known limits
 
 - It does not inflect for grammar in general (`पर्यंत` after a clock time is handled; other postpositions are not).
-- Latin words inside Hindi / Marathi text (a UPI handle like `densa`, English words like `error`) are kept in Latin for the TTS to read; they are not transliterated.
+- Latin words inside Hindi / Marathi text (a UPI handle like `rahul`, English words like `error`) are kept in Latin for the TTS to read; they are not transliterated.
 - English mode reads the same rules in English; it does not expand US-style "million / billion" wording.
 - A bare 10-digit number starting with 6–9 is treated as a phone number.
 - A bare 6+ digit number with no commas (`100000`) is read digit by digit. Write `1,00,000` for amounts.

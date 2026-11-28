@@ -51,7 +51,7 @@ export function buildRules(L, opts) {
       if (seg === '-') return L.dash;
       return seg.split(/(\d+)/).filter(Boolean).map((run) => {
         if (/^\d+$/.test(run)) return digitsToWords(run, L);
-        // Short or vowel-less runs ("rk", "xyz") are spelled; names ("densa") stay a word.
+        // Short or vowel-less runs ("rk", "xyz") are spelled; names ("rahul") stay a word.
         if (run.length <= 3 || !/[aeiouy]/i.test(run)) return spell(run);
         return run.toLowerCase();
       }).join(' ');
@@ -112,7 +112,7 @@ export function buildRules(L, opts) {
       fn: () => rep,
     })),
     {
-      // UPI IDs: densa@okicici → "densa ऐट ओके आई सी आई सी आई". Emails (x@gmail.com) are left alone.
+      // UPI IDs: rahul@okicici → "rahul ऐट ओके आई सी आई सी आई". Emails (x@gmail.com) are left alone.
       name: 'upi',
       re: re(String.raw`(?<![A-Za-z0-9._\-@])([A-Za-z0-9][A-Za-z0-9._\-]{1,48})@([A-Za-z]{2,24})(?![A-Za-z0-9@]|\.[A-Za-z])`),
       fn: (m, [handle, suffix], _L, input) => {

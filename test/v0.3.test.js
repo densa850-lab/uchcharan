@@ -43,7 +43,7 @@ test('English mode: Indian numbers in English, no Hindi words', () => {
   eq(en('10:00'), "ten o'clock");
   eq(numberToWords(12500000, 'en'), 'one crore twenty five lakh');
   eq(numberToWords(105, 'en'), 'one hundred and five');
-  for (const s of [en('₹1,50,000 on 12/03/2026 at 10:30, PNR 4521367890, MH15AB1234, densa@okicici')]) {
+  for (const s of [en('₹1,50,000 on 12/03/2026 at 10:30, PNR 4521367890, MH15AB1234, rahul@okicici')]) {
     assert.ok(!/[\u0900-\u097F]/.test(s), `Devanagari leaked: ${s}`);
   }
 });
@@ -69,15 +69,15 @@ test('OTP and verification codes are read digit by digit in every language', () 
 });
 
 test('UPI IDs', () => {
-  eq(hi('पैसे densa@okicici पर भेजें।'), 'पैसे densa ऐट ओके आई सी आई सी आई पर भेजें।');
-  eq(mr('densa@okhdfcbank'), 'densa ॲट ओके एच डी एफ सी बँक');
+  eq(hi('पैसे rahul@okicici पर भेजें।'), 'पैसे rahul ऐट ओके आई सी आई सी आई पर भेजें।');
+  eq(mr('rahul@okhdfcbank'), 'rahul ॲट ओके एच डी एफ सी बँक');
   eq(hi('rk@ptyes'), 'आर के ऐट पी टी यस');
   eq(hi('पैसे 9876543210@paytm पर भेजें'), 'पैसे नौ आठ सात छह पाँच चार तीन दो एक शून्य ऐट पेटीएम पर भेजें');
   eq(en('UPI: rahul.sharma92@ybl'), 'U P I: rahul dot sharma nine two at Y B L');
   eq(en('shop@okaxis'), 'shop at okay axis');
-  eq(en('densa@oksbi'), 'densa at okay S B I');
+  eq(en('rahul@oksbi'), 'rahul at okay S B I');
   // Emails and unknown suffixes are left alone (no UPI context).
-  eq(en('mail me at densa@gmail.com'), 'mail me at densa@gmail.com');
+  eq(en('mail me at rahul@gmail.com'), 'mail me at rahul@gmail.com');
   eq(en('ping me@home'), 'ping me@home');
   // An unknown suffix is read when the text mentions UPI.
   eq(en('UPI ID ravi@newbank'), 'U P I I D ravi at newbank');
